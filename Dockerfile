@@ -1,8 +1,5 @@
-FROM openjdk:8-jdk-alpine
-
-ARG JAR_FILE
-COPY ${JAR_FILE} app.jar
-
+FROM openjdk:16-jdk-alpine AS build
+COPY --from=build /target/whiteboard-lms.jar demo.jar
+# ENV PORT=8080
 EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java","-jar","demo.jar"]
